@@ -4,8 +4,8 @@
     "version": "1.0",
     "description": "Extensión de Chrome para marcar entrada/salida laboral",
     "icons": {
-        "16": "icon_dentro16.png",
-        "128": "icon_dentro128.png"
+        "16": "iconos/icon_dentro16.png",
+        "128": "iconos/icon_dentro128.png"
     },
     "browser_action": {
         "default_popup": "index.html",
