@@ -7,6 +7,16 @@
         "16": "iconos/icon_dentro16.png",
         "128": "iconos/icon_dentro128.png"
     },
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "permissions": [
+        "identity",
+        "identity.email"
+    ],
     "browser_action": {
         "default_popup": "index.html",
         "default_title": "Axxis Systems"
