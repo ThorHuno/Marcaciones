@@ -7,16 +7,6 @@
         "16": "iconos/icon_dentro16.png",
         "128": "iconos/icon_dentro128.png"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "content.js"
-            ]
-        }
-    ],
     "background": {
         "scripts": [
             "background.js"
