@@ -8,7 +8,7 @@ document
                 var nodoUsuario = document.getElementById('usuario');
 
                 if (nodoUsuario) {
-                    nodoUsuario.innerText = `Usuario: ${logged_in_user}`;
+                    nodoUsuario.innerText = `${logged_in_user}`;
                 }
             });
     });
