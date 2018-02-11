@@ -4,8 +4,8 @@
     "version": "1.0",
     "description": "Extensión de Chrome para marcar entrada/salida laboral",
     "icons": {
-        "16": "iconos/icon_dentro16.png",
-        "128": "iconos/icon_dentro128.png"
+        "16": "iconos/16-icono_dentro.png",
+        "128": "iconos/128-icono_dentro.png"
     },
     "background": {
         "scripts": [
@@ -20,8 +20,7 @@
         "https://*/*"
     ],
     "browser_action": {
-        "default_popup": "index.html",
+        "default_popup": "popup.html",
         "default_title": "Axxis Systems"
-    },
-    "content_security_policy": "script-src 'self' https://*.firebase.com https://*.firebaseio.com; object-src 'self'"
+    }
 }
