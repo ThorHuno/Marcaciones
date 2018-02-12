@@ -7,6 +7,7 @@ var tooltip = {
 chrome
     .identity
     .getProfileUserInfo(function (info) {
+        peticion();
         email = info.email;
     });
 
@@ -27,3 +28,14 @@ chrome
                 break;
         }
     });
+
+function peticion() {
+    axios
+        .get('http://localhost:5000/api/get')
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}

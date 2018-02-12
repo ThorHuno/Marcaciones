@@ -13,6 +13,10 @@ app.use(function (req, res, next) {
 
 var router = express.Router();
 
+router.get("/get", (req, res) => {
+    res.send({saludo: 'Hola desde el server'});
+});
+
 app.use('/api', router)
 
 app.listen(PORT, function () {
