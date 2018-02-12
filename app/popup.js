@@ -11,9 +11,9 @@ document
 
                 if (nodoUsuario) {
                     nodoUsuario.innerText = `${response.email}`;
-                    obtenerTooltip(function (tooltip) {
-                        cambiarTooltip(`${tooltip}\n Usuario ${response.email}\n Estado: ${response.trabajando}`);
-                    });
+                    cambiarTooltip(`${response.tooltip.cia}\n Usuario: ${response.tooltip.usuario}\n Estado: ${response.tooltip.estado
+                        ? "Fuera"
+                        : "Dentro"}`);
                 }
 
                 cambiarBoton(btn, response.trabajando);
@@ -32,6 +32,9 @@ function marcar() {
             var btn = document.getElementById('btnMarcar');
             cambiarBoton(btn, response.trabajando);
             cambiarIcono(response.trabajando);
+            cambiarTooltip(`${response.tooltip.cia}\n Usuario: ${response.tooltip.usuario}\n Estado: ${response.tooltip.estado
+                ? "Fuera"
+                : "Dentro"}`);
         });
 }
 
@@ -56,7 +59,7 @@ function cambiarBoton(boton, bandera) {
 }
 
 function cambiarIcono(bandera) {
-    var icono = bandera
+    var icono = !bandera
         ? "icono_dentro"
         : "icono_fuera";
     chrome

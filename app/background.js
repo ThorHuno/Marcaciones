@@ -1,4 +1,9 @@
 var trabajando = false;
+var tooltip = {
+    cia: 'Axxys Systems',
+    usuario: '',
+    estado: false
+};
 chrome
     .identity
     .getProfileUserInfo(function (info) {
@@ -11,11 +16,14 @@ chrome
     .addListener(function (request, sender, sendResponse) {
         switch (request.accion) {
             case 'inicio':
-                sendResponse({email: email, trabajando: trabajando});
+                tooltip.estado = trabajando;
+                tooltip.usuario = email;
+                sendResponse({email: email, trabajando: trabajando, tooltip: tooltip});
                 break;
             case 'marcar':
                 trabajando = !trabajando;
-                sendResponse({trabajando: trabajando});
+                tooltip.estado = trabajando;
+                sendResponse({trabajando: trabajando, tooltip: tooltip});
                 break;
         }
     });
