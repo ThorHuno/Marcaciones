@@ -1,13 +1,17 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var funciones = require(__dirname + '/servicios.js');
 
-const RUTAJSON = __dirname + '/json';
+const RUTADIRJSON = __dirname + '/json';
 
 var app = express();
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 const PORT = process.env.PORT || 5000;
 
-if (!funciones.ExisteDirectorio(RUTAJSON)) {
-    funciones.CrearDirectorio(RUTAJSON);
+if (!funciones.ExisteDirectorio(RUTADIRJSON)) {
+    funciones.CrearDirectorio(RUTADIRJSON);
 }
 
 app
@@ -21,14 +25,22 @@ app
 
 var router = express.Router();
 
-router.get("/get", (req, res) => {
-    var fechaActual = new Date();
-    var dia = fechaActual.getDate();
-    var mes = fechaActual.getMonth() + 1;
-    var anio = fechaActual.getFullYear();
-    var nombreArchivo = `${dia}-${mes}-${anio}.json`;
-    funciones.EscribirJson(RUTAJSON + '/' + nombreArchivo);
-    res.send({saludo: 'Hola desde el server'});
+router.post("/marcar", (req, res) => {
+    var parametros = req.body;
+    var nombreArchivo = funciones.CrearNombreJson();
+    var rutaJson = RUTADIRJSON + '/' + nombreArchivo;
+
+    if (!funciones.ExisteDirectorio(rutaJson)) {
+        parametros.marcaciones = [{ hora: parametros.hora, direccionIP: req.connection.remoteAddress, esEntrada: parametros.esEntrada }];
+        delete parametros.hora;
+        delete parametros.esEntrada;
+        funciones.CrearJson(rutaJson, [parametros]);
+    }
+
+    var jsonString = funciones.LeerJson(rutaJson);
+    var jsonObjeto = JSON.parse(jsonString);
+
+    res.send(jsonObjeto);
 });
 
 app.use('/api', router)

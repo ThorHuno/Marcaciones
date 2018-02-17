@@ -5,15 +5,38 @@ function ExisteDirectorio(directorio) {
 }
 
 function CrearDirectorio(directorio) {
-    fs.mkdirSync(directorio);
+    try {
+        fs.mkdirSync(directorio);
+    }
+    catch (e) {
+        throw e;
+    }
 }
 
-function EscribirJson(ruta) {
-    fs.writeFileSync(ruta);
+function CrearJson(ruta, dataInicial) {
+    var data = dataInicial || [];
+    fs.writeFileSync(ruta, JSON.stringify(data), 'utf8');
+}
+
+function LeerJson(ruta) {
+    var buffer = fs.readFileSync(ruta);
+    return buffer.toString();
+}
+
+function CrearNombreJson() {
+    var fechaActual = new Date();
+    var dia = fechaActual.getDate();
+    var mes = fechaActual.getMonth() + 1;
+    var anio = fechaActual.getFullYear();
+    var nombreArchivo = `${dia}-${mes}-${anio}.json`;
+
+    return nombreArchivo;
 }
 
 module.exports = {
     ExisteDirectorio,
     CrearDirectorio,
-    EscribirJson
+    CrearJson,
+    CrearNombreJson,
+    LeerJson
 };
