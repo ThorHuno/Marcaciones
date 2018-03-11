@@ -7,7 +7,6 @@ var tooltip = {
 chrome
     .identity
     .getProfileUserInfo(function (info) {
-        peticion();
         email = info.email;
     });
 
@@ -19,19 +18,20 @@ chrome
             case 'inicio':
                 tooltip.estado = trabajando;
                 tooltip.usuario = email;
-                sendResponse({email: email, trabajando: trabajando, tooltip: tooltip});
+                sendResponse({ email: email, trabajando: trabajando, tooltip: tooltip });
                 break;
             case 'marcar':
                 trabajando = !trabajando;
                 tooltip.estado = trabajando;
-                sendResponse({trabajando: trabajando, tooltip: tooltip});
+                peticion({ usuario: email, esEntrada: trabajando, hora: new Date() });
+                sendResponse({ trabajando: trabajando, tooltip: tooltip });
                 break;
         }
     });
 
-function peticion() {
+function peticion(data) {
     axios
-        .get('http://localhost:5000/api/get')
+        .post('http://localhost:5000/api/marcar', data)
         .then(function (response) {
             console.log(response);
         })
