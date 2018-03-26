@@ -1,9 +1,15 @@
 var trabajando = false;
+var estados = {
+    offline: 'Offline',
+    dentro: 'Dentro',
+    fuera: 'Fuera'
+};
 var tooltip = {
     cia: 'Axxys Systems',
     usuario: '',
-    estado: false
+    estado: estados.offline
 };
+var socket = null;
 chrome
     .identity
     .getProfileUserInfo(function (info) {
@@ -16,15 +22,19 @@ chrome
     .addListener(function (request, sender, sendResponse) {
         switch (request.accion) {
             case 'inicio':
-                tooltip.estado = trabajando;
+                socket = io.connect('http://localhost:5000/');
+                socket.emit('colaboradorConectado', email);
+                tooltip.estado = estados.offline;
                 tooltip.usuario = email;
-                sendResponse({ email: email, trabajando: trabajando, tooltip: tooltip });
+                sendResponse({email: email, trabajando: trabajando, tooltip: tooltip});
                 break;
             case 'marcar':
                 trabajando = !trabajando;
-                tooltip.estado = trabajando;
-                peticion({ usuario: email, esEntrada: trabajando, hora: new Date() });
-                sendResponse({ trabajando: trabajando, tooltip: tooltip });
+                tooltip.estado = trabajando
+                    ? estados.dentro
+                    : estados.fuera;
+                peticion({usuario: email, esEntrada: trabajando, hora: new Date()});
+                sendResponse({trabajando: trabajando, tooltip: tooltip});
                 break;
         }
     });

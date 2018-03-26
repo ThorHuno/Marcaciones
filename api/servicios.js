@@ -7,8 +7,7 @@ function ExisteDirectorio(directorio) {
 function CrearDirectorio(directorio) {
     try {
         fs.mkdirSync(directorio);
-    }
-    catch (e) {
+    } catch (e) {
         throw e;
     }
 }
@@ -23,14 +22,23 @@ function LeerJson(ruta) {
     return buffer.toString();
 }
 
-function CrearNombreJson() {
+function CrearNombreJson(usuario) {
     var fechaActual = new Date();
     var dia = fechaActual.getDate();
     var mes = fechaActual.getMonth() + 1;
     var anio = fechaActual.getFullYear();
-    var nombreArchivo = `${dia}-${mes}-${anio}.json`;
+    var nombreArchivo = `${usuario}-${dia}-${mes}-${anio}.json`;
 
     return nombreArchivo;
+}
+
+function EsJson(input) {
+    try {
+        JSON.parse(input);
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
 
 module.exports = {
@@ -38,5 +46,6 @@ module.exports = {
     CrearDirectorio,
     CrearJson,
     CrearNombreJson,
-    LeerJson
+    LeerJson,
+    EsJson
 };

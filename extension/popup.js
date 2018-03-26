@@ -11,13 +11,10 @@ document
 
                 if (nodoUsuario) {
                     nodoUsuario.innerText = `${response.email}`;
-                    cambiarTooltip(`${response.tooltip.cia}\n Usuario: ${response.tooltip.usuario}\n Estado: ${response.tooltip.estado
-                        ? "Fuera"
-                        : "Dentro"}`);
+                    cambiarTooltip(`${response.tooltip.cia}\n Usuario: ${response.tooltip.usuario}\n Estado: ${response.tooltip.estado}`);
                 }
 
-                cambiarBoton(btn, response.trabajando);
-                cambiarIcono(response.trabajando);
+                // cambiarBoton(btn, response.trabajando); cambiarIcono(response.trabajando);
             });
 
         btn.addEventListener('click', marcar);
@@ -32,9 +29,7 @@ function marcar() {
             var btn = document.getElementById('btnMarcar');
             cambiarBoton(btn, response.trabajando);
             cambiarIcono(response.trabajando);
-            cambiarTooltip(`${response.tooltip.cia}\n Usuario: ${response.tooltip.usuario}\n Estado: ${response.tooltip.estado
-                ? "Fuera"
-                : "Dentro"}`);
+            cambiarTooltip(`${response.tooltip.cia}\n Usuario: ${response.tooltip.usuario}\n Estado: ${response.tooltip.estado}`);
         });
 }
 
@@ -43,11 +38,17 @@ function cambiarBoton(boton, bandera) {
         if (bandera) {
             boton
                 .classList
+                .remove('offline');
+            boton
+                .classList
                 .remove('dentro');
             boton
                 .classList
                 .add('fuera');
         } else {
+            boton
+                .classList
+                .remove('offline');
             boton
                 .classList
                 .remove('fuera');

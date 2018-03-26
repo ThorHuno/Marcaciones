@@ -10,7 +10,8 @@
     "background": {
         "scripts": [
             "axios.min.js",
-            "background.js"
+            "background.js",
+            "socket.io.js"
         ],
         "persistent": false
     },
