@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "atg",
-    "password": "%atg100%",
-    "database": "marcacionesdb2",
+    "username": "root",
+    "password": null,
+    "database": "marcacionesdb",
     "host": "127.0.0.1",
     "port": "3306",
     "dialect": "mysql"
