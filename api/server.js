@@ -6,9 +6,10 @@ var funciones = require(__dirname + '/servicios.js');
 var colaboradorRoutes = require('./routes/colaborador');
 var marcadaRoutes = require('./routes/marcada');
 var authRoutes = require('./routes/auth');
+var profileRoutes = require('./routes/profile');
 const passportSetup = require('./config/passport-setup');
 const passport = require('passport');
-const cors = require('cors');
+const cookieSession = require('cookie-session');
 
 var app = express();
 var server = http.createServer(app);
@@ -22,11 +23,12 @@ IO.on('connection', socket => {
     });
 });
 
-var corsOption = {
-    origin: '*'
-}
-app.use(cors(corsOption));
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: ['baby']
+}));
 app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 
@@ -46,16 +48,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api', colaboradorRoutes);
 app.use('/api', marcadaRoutes);
 app.use('/auth', authRoutes);
-const authCheck = (req, res, next) => {
-    if (!req.user) {
-        res.redirect('/auth/google');
-    } else {
-        next();
-    }
-}
-app.use('/', authCheck, (req, res) => {
-    debugger;
-});
+app.use('/profile', profileRoutes);
 
 server.listen(PORT, function () {
     console.log('Express server is running on port ' + PORT);

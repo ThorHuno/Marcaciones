@@ -25,6 +25,12 @@ class UserService {
             .User
             .findById(id);
     }
+
+    async findOne(criterio) {
+        return models
+            .User
+            .findOne({where: criterio});
+    }
 }
 
 module.exports = UserService;

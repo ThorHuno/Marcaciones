@@ -1,15 +1,17 @@
 const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const localStrategy = require('passport-local');
 const keys = require('./keys');
 var userServices = require('../services/user.service');
+var crypt = require('../utils/utils');
 
 passport.serializeUser((user, done) => {
     done(null, user.id)
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async(id, done) => {
     let userService = new userServices();
-    let user = userService.findById(id);
+    let user = await userService.findById(id);
     done(null, user);
 });
 
@@ -22,4 +24,24 @@ passport.use(new googleStrategy({
     let newRecord = await userService.save({userName: profileInformation.displayName, strategyId: profileInformation.id, strategyName: 'google'});
 
     done(null, newRecord);
+}));
+
+passport.use(new localStrategy({
+    usernameField: 'userName',
+    passwordField: 'password',
+    passReqToCallback: true
+}, async(req, username, password, done) => {
+    let userService = new userServices();
+    let record = await userService.findByField('userName', username);
+
+    if (!record) 
+        return done(null, false, {"loginMessage": 'No user found.'});
+    
+    if (crypt.decrypt(record.password) !== password) 
+        return done(null, false, {"loginMessage": 'Wrong password.'});
+    
+    if (!record.isEnable) 
+        return done(null, false, {"loginMessage": 'Disabled account.'});
+    
+    done(null, record);
 }));
