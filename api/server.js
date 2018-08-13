@@ -30,7 +30,7 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const PORT = process.env.PORT || 5000;
 
@@ -48,7 +48,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api', colaboradorRoutes);
 app.use('/api', marcadaRoutes);
 app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes);
+app.use('/profile', passport.authenticate('jwt', { session: false }), profileRoutes);
 
 server.listen(PORT, function () {
     console.log('Express server is running on port ' + PORT);
