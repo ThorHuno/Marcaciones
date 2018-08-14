@@ -1,35 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
+var authController = require('../controllers/auth.controller');
 
-router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+// router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
-router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    // res.redirect('/profile/');
-    const token = jwt.sign({
-        id: req.user.id,
-        uName: req.user.userName
-    }, 'jwt_permission');
-    res.json({ user: req.user, token });
-});
+// router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+//     const token = jwt.sign({
+//         id: req.user.id,
+//         uName: req.user.userName
+//     }, 'jwt_permission');
+//     res.json({ user: req.user, token });
+// });
 
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', { session: false }, (err, user, info) => {
-        if (err) {
-            return next(err)
-        }
-        if (!user) {
-            return res.json({ message: info.loginMessage })
-        }
+var controller = new authController();
 
-        const token = jwt.sign({
-            id: user.id,
-            uName: user.userName
-        }, 'jwt_permission');
-
-        res.json({ token });
-    })(req, res, next)
-});
+router.post('/login', controller.login);
 
 module.exports = router;
