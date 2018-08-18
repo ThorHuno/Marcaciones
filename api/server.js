@@ -3,10 +3,10 @@ const http = require('http');
 var httpMiddleware = require('./middlewares/http.middleware');
 // var socketIO = require('socket.io');
 var bodyParser = require('body-parser');
-var colaboradorRoutes = require('./routes/colaborador');
-var marcadaRoutes = require('./routes/marcada');
-var authRoutes = require('./routes/auth');
-var profileRoutes = require('./routes/profile');
+var colaboradorRoutes = require('./routes/collaborator.route');
+var marcadaRoutes = require('./routes/mark.route');
+var authRoutes = require('./routes/auth.route');
+var profileRoutes = require('./routes/profile.route');
 const passportSetup = require('./config/passport-setup');
 const passport = require('passport');
 

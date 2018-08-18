@@ -3,6 +3,6 @@ var router = express.Router();
 var collaboratorController = require('../controllers/collaborator.controller');
 
 var controller = new collaboratorController();
-router.post('/colaborador', controller.create);
+router.post('/collaborator', controller.create);
 
 module.exports = router;

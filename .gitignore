@@ -3,3 +3,4 @@ node_modules/
 api/json/
 *.log
 api/config/keys.js
+api/config/config\.json

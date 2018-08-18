@@ -1,4 +1,4 @@
-var marcadaServices = require('../services/marcada.service');
+var marcadaServices = require('../services/mark.service');
 
 class MarkController {
     async create(req, res) {

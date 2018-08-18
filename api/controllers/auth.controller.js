@@ -1,5 +1,6 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+var cnfg = require('../config/keys');
 
 class AuthController {
     login(req, res, next) {
@@ -14,7 +15,7 @@ class AuthController {
             const token = jwt.sign({
                 id: user.id,
                 uName: user.userName
-            }, 'jwt_permission');
+            }, 'jwt_permission', { expiresIn: cnfg.params.expiredTokenTime });
 
             res.json({ token });
         })(req, res, next)

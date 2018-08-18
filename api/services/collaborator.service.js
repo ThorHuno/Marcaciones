@@ -4,12 +4,12 @@ class ColaboradorService {
     async save(email) {
         let existingRecord = await this.findByField('email', email);
 
-        if (existingRecord) 
+        if (existingRecord)
             throw new Error(`Ya existe un registro con email ${email}`);
-        
+
         return await models
             .Colaborador
-            .create({'email': email});
+            .create({ 'email': email });
 
     }
 
@@ -21,6 +21,10 @@ class ColaboradorService {
                     [field]: value
                 }
             })
+    }
+
+    async where(predicate) {
+        return models.Colaborador.findAll({ where: predicate });
     }
 }
 
