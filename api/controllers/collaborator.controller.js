@@ -3,7 +3,7 @@ var colaboradorServices = require('../services/collaborator.service');
 class CollaboratorController {
     async create(req, res) {
         let args = req.body;
-        let colaboradorService = new colaboradorServices();
+        var colaboradorService = new colaboradorServices();
 
         if (!args.email)
             return res
@@ -24,6 +24,22 @@ class CollaboratorController {
                 .status(200)
                 .json({ data: newRecord.id, timestamp: new Date() });
         } catch (error) {
+            res
+                .status(500)
+                .json({ error: error.message, timestamp: new Date() });
+        }
+    }
+
+    async getAll(req, res) {
+        var colaboradorService = new colaboradorServices();
+        try {
+            var collaborators = await colaboradorService.getAll();
+
+            res
+                .status(200)
+                .json({ data: collaborators, timestamp: new Date() });
+        }
+        catch (error) {
             res
                 .status(500)
                 .json({ error: error.message, timestamp: new Date() });

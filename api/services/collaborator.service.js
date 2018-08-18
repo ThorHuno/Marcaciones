@@ -26,6 +26,10 @@ class ColaboradorService {
     async where(predicate) {
         return models.Colaborador.findAll({ where: predicate });
     }
+
+    async getAll() {
+        return await models.Colaborador.findAll({ attributes: ['id', 'email', 'isEnable', 'createdAt'] });
+    }
 }
 
 module.exports = ColaboradorService;
