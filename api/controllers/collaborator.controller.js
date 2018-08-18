@@ -31,13 +31,44 @@ class CollaboratorController {
     }
 
     async getAll(req, res) {
-        var colaboradorService = new colaboradorServices();
+        var collaboratorService = new colaboradorServices();
         try {
-            var collaborators = await colaboradorService.getAll();
+            var collaborators = await collaboratorService.getAll();
 
             res
                 .status(200)
                 .json({ data: collaborators, timestamp: new Date() });
+        }
+        catch (error) {
+            res
+                .status(500)
+                .json({ error: error.message, timestamp: new Date() });
+        }
+    }
+
+    async update(req, res) {
+        var colaboradorService = new colaboradorServices();
+        try {
+            await colaboradorService.update(req.body);
+
+            res
+                .status(200)
+                .json({ data: true, timestamp: new Date() });
+        } catch (error) {
+            res
+                .status(500)
+                .json({ error: error.message, timestamp: new Date() });
+        }
+    }
+
+    async get(req, res) {
+        var collaboratorService = new colaboradorServices();
+        try {
+            var collaborator = await collaboratorService.get(req.params.id);
+
+            res
+                .status(200)
+                .json({ data: collaborator, timestamp: new Date() });
         }
         catch (error) {
             res

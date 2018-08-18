@@ -16,7 +16,15 @@ function decrypt(text) {
     return dec;
 }
 
+function nameOf(variable) {
+    let nameObject = { variable };
+    for (let varName in nameObject) {
+        return varName;
+    }
+}
+
 module.exports = {
     encrypt,
-    decrypt
+    decrypt,
+    nameOf
 }
