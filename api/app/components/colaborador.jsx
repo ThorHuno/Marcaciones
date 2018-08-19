@@ -1,13 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-class Colaborador extends React.Component {
+const propTypes = {
+    collaborator: PropTypes.object.isRequired
+}
+
+export default class Colaborador extends React.Component {
     render() {
         return (
-            <div>
-                {this.props.nombre}
-            </div>
+            <tr>
+                <td>
+                    <span style={{ fontSize: '18px' }}>
+                        <a href={`mailto:${this.props.collaborator.email}`}>
+                            {this.props.collaborator.email}
+                        </a>
+                    </span>
+                </td>
+                <td>
+                    <Link className="btn btn-outline-primary btn-sm" to={`collaborator/${this.props.collaborator.id}`}>Editar</Link>
+                </td>
+            </tr>
         );
     }
 }
 
-export default Colaborador;
+Colaborador.propTypes = propTypes;

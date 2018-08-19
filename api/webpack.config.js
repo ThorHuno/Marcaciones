@@ -2,13 +2,14 @@
 var webpack = require('webpack');
 
 module.exports = {
+    mode: "development",
     entry: [
         'script-loader!jquery/dist/jquery.min.js', 'script-loader!bootstrap/dist/js/bootstrap.min.js', './app/components/app.jsx'
     ],
     externals: {
         jquery: 'jQuery'
     },
-    plugins: [new webpack.ProvidePlugin({'$': 'jquery', 'jQuery': 'jquery'})],
+    plugins: [new webpack.ProvidePlugin({ '$': 'jquery', 'jQuery': 'jquery' })],
     output: {
         path: __dirname,
         filename: 'public/bundle.js'
@@ -19,18 +20,18 @@ module.exports = {
         ],
         alias: {
             //components
-            side_bar: 'app/components/side_bar.jsx',
-            colaboradores: 'app/components/colaboradores.jsx',
+            SideBar: 'app/components/SideBar.jsx',
+            Collaborators: 'app/components/Collaborators.jsx',
             colaborador: 'app/components/colaborador.jsx',
         },
         extensions: ['.js', '.jsx']
     },
     module: {
-        loaders: [
+        rules: [
             {
                 loader: 'babel-loader',
                 query: {
-                    presets: ['react', 'env', 'stage-0']
+                    presets: ['react', 'env', 'stage-0'],
                 },
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/

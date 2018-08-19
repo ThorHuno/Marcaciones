@@ -32,7 +32,7 @@ const PORT = process.env.PORT || 5000;
 app.use(new httpMiddleware().convertHttp)
 
 //Directorio de los archivos estáticos css, js, html
-app.use('/panel', passport.authenticate('jwt', { session: false }), express.static(__dirname + '/public'));
+app.use('/panel', /*passport.authenticate('jwt', { session: false }),*/ express.static(__dirname + '/public'));
 
 //API
 app.use('/api', passport.authenticate('jwt', { session: false }));
