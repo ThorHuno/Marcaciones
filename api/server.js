@@ -7,8 +7,9 @@ var colaboradorRoutes = require('./routes/collaborator.route');
 var marcadaRoutes = require('./routes/mark.route');
 var authRoutes = require('./routes/auth.route');
 var profileRoutes = require('./routes/profile.route');
-const passportSetup = require('./config/passport-setup');
+require('./config/passport-setup');
 const passport = require('passport');
+const exphbs = require('express-handlebars');
 
 var app = express();
 var server = http.createServer(app);
@@ -40,6 +41,9 @@ app.use('/api', colaboradorRoutes);
 app.use('/api', marcadaRoutes);
 app.use('/auth', authRoutes);
 app.use('/profile', passport.authenticate('jwt', { session: false }), profileRoutes);
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 server.listen(PORT, function () {
     console.log('Express server is running on port ' + PORT);

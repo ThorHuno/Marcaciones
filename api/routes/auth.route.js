@@ -16,4 +16,8 @@ var controller = new authController();
 
 router.post('/login', controller.login);
 
+router.get('/login', (req, res) => {
+    res.render('login');
+});
+
 module.exports = router;

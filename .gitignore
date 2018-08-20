@@ -4,3 +4,5 @@ api/json/
 *.log
 api/config/keys.js
 api/config/config\.json
+
+api/package-lock\.json
