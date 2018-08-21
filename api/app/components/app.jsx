@@ -13,15 +13,17 @@ class App extends React.Component {
         super(props);
         // const SOCKET = openSocket('/');
         this.state = {
-            collaborators: []
+            collaborators: [],
+            isFetchingData: true
         };
 
-        $.get({ url: '/api/collaborator', headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidU5hbWUiOiJhdG9ydW5vIiwiaWF0IjoxNTM0Njk3MzMzLCJleHAiOjE1MzQ3ODM3MzN9.-neJO-LHwbhyXMLOJP4c71CMZBvnz5fKlILao9DeKks' } }, response => {
+        $.get({ url: '/api/collaborator', headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidU5hbWUiOiJhdG9ydW5vIiwiaWF0IjoxNTM0ODgzODg4LCJleHAiOjE1MzQ5NzAyODh9.xngs-EAd-bOslfPti05lgeMTAzr6kakzmWypEUfmi_Q' } }, response => {
             this.setState({
                 collaborators: [
                     ...this.state.collaborators,
                     ...response.data
-                ]
+                ],
+                isFetchingData: false
             });
         }).fail(err => {
             console.log(err);
@@ -52,7 +54,7 @@ class App extends React.Component {
                             <Route
                                 exact
                                 path='/panel'
-                                render={() => < Collaborators items={
+                                render={() => < Collaborators isFetchingData={this.state.isFetchingData} items={
                                     this.state.collaborators
                                 } />} />
                             <Route path='/foo' />

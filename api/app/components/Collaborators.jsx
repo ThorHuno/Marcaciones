@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Colaborador from 'colaborador';
+import WithLoading from 'WithLoading';
 
 const propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
-export default class Collaborators extends React.Component {
+class Collaborators extends React.Component {
     render() {
 
         return (
@@ -26,3 +27,5 @@ export default class Collaborators extends React.Component {
 }
 
 Collaborators.propTypes = propTypes;
+
+export default WithLoading()(Collaborators);
