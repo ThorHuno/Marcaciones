@@ -12,6 +12,12 @@ class Collaborators extends React.Component {
 
         return (
             <table className="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
                 <tbody>
                     {this
                         .props

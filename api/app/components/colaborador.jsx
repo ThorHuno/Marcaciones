@@ -11,6 +11,9 @@ export default class Colaborador extends React.Component {
         return (
             <tr>
                 <td>
+                    {this.props.collaborator.firstName}
+                </td>
+                <td>
                     <span style={{ fontSize: '18px' }}>
                         <a href={`mailto:${this.props.collaborator.email}`}>
                             {this.props.collaborator.email}

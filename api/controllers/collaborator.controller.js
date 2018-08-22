@@ -5,20 +5,20 @@ class CollaboratorController {
         let args = req.body;
         var colaboradorService = new colaboradorServices();
 
-        if (!args.email)
-            return res
-                .status(500)
-                .json({ error: "El campo email es requerido", timestamp: new Date() });
+        // if (!args.email)
+        //     return res
+        //         .status(500)
+        //         .json({ error: "El campo email es requerido", timestamp: new Date() });
 
-        var existingActiveEmail = await colaboradorService.where({ 'email': args.email, 'isEnable': true });
+        // var existingActiveEmail = await colaboradorService.where({ 'email': args.email, 'isEnable': true });
 
-        if (existingActiveEmail.length)
-            return res
-                .status(500)
-                .json({ error: `Ya existe un registro con email ${args.email}`, timestamp: new Date() });
+        // if (existingActiveEmail.length)
+        //     return res
+        //         .status(500)
+        //         .json({ error: `Ya existe un registro con email ${args.email}`, timestamp: new Date() });
 
         try {
-            let newRecord = await colaboradorService.save(args.email);
+            let newRecord = await colaboradorService.save(args);
 
             res
                 .status(200)

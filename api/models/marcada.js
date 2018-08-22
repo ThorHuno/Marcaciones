@@ -1,10 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Marcada = sequelize.define('Marcada', {
-    hour: DataTypes.DATE,
+    hour: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
     isEnter: DataTypes.BOOLEAN,
-    ipAddress: DataTypes.STRING,
-    colaboradorId: DataTypes.INTEGER
+    ipAddress: {
+      type: DataTypes.STRING(70),
+    },
+    colaboradorId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     tableName: 'marcadas'
   });

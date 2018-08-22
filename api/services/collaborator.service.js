@@ -2,16 +2,17 @@ var models = require('../models');
 var nameOf = require('../utils/utils').nameOf;
 
 class ColaboradorService {
-    async save(email) {
-        let existingRecord = await this.findByField('email', email);
+    async save(obj) {
+        var model = models.Colaborador.build(obj);
+
+        var validation = await model.validate();
+
+        let existingRecord = await this.findByField('email', obj.email);
 
         if (existingRecord)
-            throw new Error(`Ya existe un registro con email ${email}`);
+            throw new Error(`Ya existe un registro con email ${obj.email}`);
 
-        return await models
-            .Colaborador
-            .create({ 'email': email });
-
+        return validation.save();
     }
 
     async findByField(field, value) {
@@ -25,15 +26,21 @@ class ColaboradorService {
     }
 
     async where(predicate) {
-        return models.Colaborador.findAll({ where: predicate });
+        return models.Colaborador.findAll({
+            where: predicate
+        });
     }
 
     async getAll() {
-        return await models.Colaborador.findAll({ attributes: ['id', 'email', 'isEnable', 'createdAt'] });
+        return await models.Colaborador.findAll({
+            attributes: ['id', 'email', 'firstName', 'secondName', 'surName', 'secondSurName', 'isEnable', 'createdAt']
+        });
     }
 
     async get(id) {
-        var existingCollaborator = await models.Colaborador.findById(id, { attributes: ['id', 'email', 'isEnable', 'createdAt'] });
+        var existingCollaborator = await models.Colaborador.findById(id, {
+            attributes: ['id', 'email', 'isEnable', 'createdAt']
+        });
 
         if (!existingCollaborator)
             throw new Error(`El registro con id ${id} no existe.`);
