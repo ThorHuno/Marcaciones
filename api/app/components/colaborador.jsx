@@ -7,11 +7,19 @@ const propTypes = {
 }
 
 export default class Colaborador extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    get fullName() {
+        return `${this.props.collaborator.firstName} ${this.props.collaborator.secondName || ''} ${this.props.collaborator.surName} ${this.props.collaborator.secondSurName || ''}`;
+    }
+    
     render() {
         return (
             <tr>
                 <td>
-                    {this.props.collaborator.firstName}
+                    {this.fullName}
                 </td>
                 <td>
                     <span style={{ fontSize: '18px' }}>

@@ -51,8 +51,9 @@ passport.use(new localStrategy({
 
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'jwt_permission'
-}, async (jwtPayload, cb) => {
+    secretOrKey: 'jwt_permission',
+    passReqToCallback: true
+}, async (req, jwtPayload, cb) => {
     let userService = new userServices();
     let record = await userService.findById(jwtPayload.id);
     cb(null, record);

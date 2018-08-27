@@ -6,11 +6,11 @@ class SideBar extends React.Component {
         return (
             <div>
 
-                <ul class="nav flex-column">
-                    <li class="nav-item">
+                <ul className="nav flex-column">
+                    <li className="nav-item">
                     <Link to='/'>Home</Link>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                     <Link to='/foo'>Reporte</Link>
                     </li>
                 </ul>

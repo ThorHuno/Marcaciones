@@ -39,7 +39,7 @@ class ColaboradorService {
 
     async get(id) {
         var existingCollaborator = await models.Colaborador.findById(id, {
-            attributes: ['id', 'email', 'isEnable', 'createdAt']
+            attributes: ['id', 'email', 'isEnable', 'createdAt','firstName','secondName','surName','secondSurName']
         });
 
         if (!existingCollaborator)
@@ -48,17 +48,21 @@ class ColaboradorService {
         return existingCollaborator;
     }
 
-    async update(collaborator) {
-        if (!collaborator || !Object.keys(collaborator).length)
+    async update(id,obj) {
+        if (!obj || !Object.keys(obj).length)
             throw new Error(`El parámetro collaborator es requerido.`);
 
-        var existingCollaborator = await models.Colaborador.findById(collaborator.id);
+        var existingCollaborator = await models.Colaborador.findById(id);
 
         if (!existingCollaborator)
             throw new Error(`El registro con id ${collaborator.id} no existe.`);
 
         await existingCollaborator.update({
-            isEnable: collaborator.isEnable
+            isEnable: obj.isEnable,
+            firstName: obj.firstName,
+            secondName: obj.secondName,
+            surName: obj.surName,
+            secondSurName: obj.secondSurName
         });
     }
 }

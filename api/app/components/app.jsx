@@ -17,7 +17,7 @@ class App extends React.Component {
             isFetchingData: true
         };
 
-        $.get({ url: '/api/collaborator', headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidU5hbWUiOiJhdG9ydW5vIiwiaWF0IjoxNTM0ODgzODg4LCJleHAiOjE1MzQ5NzAyODh9.xngs-EAd-bOslfPti05lgeMTAzr6kakzmWypEUfmi_Q' } }, response => {
+        $.get({ url: '/api/collaborator', headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidU5hbWUiOiJhdG9ydW5vIiwiaWF0IjoxNTM1MzE3NzM5LCJleHAiOjE1MzU0MDQxMzl9.a6KiBkBo5irmfW0GkuOpyLoT0l5GJ5Cg5lwKofRSIo8' } }, response => {
             this.setState({
                 collaborators: [
                     ...this.state.collaborators,
@@ -26,7 +26,8 @@ class App extends React.Component {
                 isFetchingData: false
             });
         }).fail(err => {
-            console.log(err);
+            if (err.status === 401)
+                window.location.replace('/auth/login');
         });
 
         // SOCKET.on('nuevoColaborador', (colaborador) => {

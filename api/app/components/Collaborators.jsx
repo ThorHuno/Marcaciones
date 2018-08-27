@@ -14,8 +14,8 @@ class Collaborators extends React.Component {
             <table className="table table-hover table-sm">
                 <thead>
                     <tr>
-                        <th>Email</th>
                         <th>Nombre</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>

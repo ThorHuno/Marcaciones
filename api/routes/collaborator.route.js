@@ -6,6 +6,6 @@ var controller = new collaboratorController();
 router.get('/collaborator', controller.getAll);
 router.get('/collaborator/:id', controller.get);
 router.post('/collaborator', controller.create);
-router.put('/collaborator', controller.update);
+router.put('/collaborator/:id', controller.update);
 
 module.exports = router;
